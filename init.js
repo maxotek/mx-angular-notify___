@@ -1,3 +1,6 @@
+// Initializes the seed project with the specified 
+// project name, description, repository URL & output filename
+
 var fs = require('fs');
 
 // Verify that files exist
@@ -11,7 +14,7 @@ if (filesToCheck.some(checkFileMissing))
 
 // Check Arguments
 if (process.argv.length < 6) {
-    console.error("Usage: <project-name> <project-description> <git-repository-url> <output-filename>");
+    console.error("Usage: node init.js <project-name> <project-description> <git-repository-url> <output-filename>");
     return -1;
 }
 
