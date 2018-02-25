@@ -2,6 +2,7 @@
 // project name, description, repository URL & output filename
 
 var fs = require('fs');
+var fileChecker = require('./file-checker');
 
 // Verify that files exist
 var packageFile = "package.json";
@@ -9,7 +10,7 @@ var bowerFile = "bower.json";
 var buildConfFile = "build.conf.js";
 
 var filesToCheck = [packageFile, bowerFile, buildConfFile];
-if (filesToCheck.some(checkFileMissing))
+if (filesToCheck.some(fileChecker))
     return -1;
 
 // Check Arguments
@@ -55,12 +56,3 @@ content = content.replace(/buildJsFilename:(\s*)(['"])[^']+(['"])/, "buildJsFile
 fs.writeFileSync(buildConfFile, content);
 
 console.log(buildConfFile + " updated");
-
-function checkFileMissing(fileName) {
-    if (!fs.existsSync(fileName)) {
-        console.error(fileName + " does not exist");
-        return true;
-    }
-
-    return false;
-}
