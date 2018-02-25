@@ -1,4 +1,6 @@
-var https = require('https');
+"use strict";
+
+var https = require("https");
 
 module.exports = function (repoName, repoDescription, accessToken, callback) {
     // List repositories
@@ -7,7 +9,7 @@ module.exports = function (repoName, repoDescription, accessToken, callback) {
         port: 443,
         path: "/user/repos",
         headers: {
-            Authorization: 'Bearer ' + accessToken,
+            Authorization: "Bearer " + accessToken,
             "User-Agent": "Maxotek Seeder"
         }
     };
@@ -15,16 +17,16 @@ module.exports = function (repoName, repoDescription, accessToken, callback) {
     console.log("Listing repositories");
 
     https.get(options, (resp) => {
-        let data = '';
+        let data = "";
 
         // A chunk of data has been recieved.
-        resp.on('data', (chunk) => {
+        resp.on("data", (chunk) => {
             data += chunk;
         });
 
         // The whole response has been received. Print out the result.
-        resp.on('end', () => {
-            console.log('Status Code:', resp.statusCode);
+        resp.on("end", () => {
+            console.log("Status Code:", resp.statusCode);
             var result = JSON.parse(data);
 
             var ownRepos = null;
@@ -64,15 +66,15 @@ module.exports = function (repoName, repoDescription, accessToken, callback) {
                     options.headers["Content-Type"] = "application/json";
 
                     var req = https.request(options, (resp) => {
-                        let data = '';
+                        let data = "";
 
                         // A chunk of data has been recieved.
-                        resp.on('data', (chunk) => {
+                        resp.on("data", (chunk) => {
                             data += chunk;
                         });
 
-                        resp.on('end', () => {
-                            console.log('Status Code:', resp.statusCode);
+                        resp.on("end", () => {
+                            console.log("Status Code:", resp.statusCode);
 
                             var result = JSON.parse(data);
 
@@ -129,4 +131,4 @@ module.exports = function (repoName, repoDescription, accessToken, callback) {
                 error: result.message
             });
     }
-}
+};

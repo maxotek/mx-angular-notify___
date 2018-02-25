@@ -1,5 +1,7 @@
-var fs = require('fs');
-var file = require('./file');
+"use strict";
+
+var fs = require("fs");
+var file = require("./file");
 
 module.exports = function (projectName, projectDescription, outputFileName, projectUrl, httpsUrl, sshUrl) {
     // Verify that files exist
@@ -21,35 +23,33 @@ module.exports = function (projectName, projectDescription, outputFileName, proj
     console.log("SSH URL: " + sshUrl);
 
     // Modify package.json
-    var content = fs.readFileSync(packageFile)
-    var obj = JSON.parse(content);
-    obj.name = projectName;
-    obj.description = projectDescription;
+    var nodePkg = file.readJsonFileAsync(packageFile);
+    nodePkg.name = projectName;
+    nodePkg.description = projectDescription;
 
     if (httpsUrl)
-        obj.repository = httpsUrl;
+        nodePkg.repository = httpsUrl;
 
-    fs.writeFileSync(packageFile, JSON.stringify(obj, null, 2));
+    fs.writeFileSync(packageFile, JSON.stringify(nodePkg, null, 2));
     console.log(packageFile + " updated");
 
     // Modify bower.json
-    var content = fs.readFileSync(bowerFile)
-    var obj = JSON.parse(content);
-    obj.name = projectName;
-    obj.description = projectDescription;
+    var bowerPkg = file.readJsonFileAsync(bowerFile);
+    bowerPkg.name = projectName;
+    bowerPkg.description = projectDescription;
 
     if (projectUrl)
-        obj.homepage = projectUrl;
+        bowerPkg.homepage = projectUrl;
 
-    fs.writeFileSync(bowerFile, JSON.stringify(obj, null, 4));
+    fs.writeFileSync(bowerFile, JSON.stringify(bowerPkg, null, 4));
     console.log(bowerFile + " updated");
 
     // Modify build.conf.js
-    file.regexReplaceFile(buildConfFile, /buildJsFilename:(\s*)(['"])[^']+(['"])/, "buildJsFilename:$1$2" + outputFileName + "$3");
+    file.regexReplaceFile(buildConfFile, /buildJsFilename:(\s*)(['"])[^'"]+(['"])/, "buildJsFilename:$1$2" + outputFileName + "$3");
 
     // Modify Git remote
     if (sshUrl)
         file.regexReplaceFile(gitConfFile, /(\s*url\s*=\s*).*/, "$1" + sshUrl);
 
     return true;
-}
+};
