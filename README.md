@@ -32,7 +32,7 @@ Clone this repository and then change the following entires.
 **package.json**
 1. name - This is the name of your project
 2. description - Give your project a meaningful description
-3. repository - The URL to your GitHub project
+3. repository - The URL to your GitHub repository
 
 **bower.json**
 1. name - This is the name of your project
@@ -52,13 +52,13 @@ Use the update-metadata.js script to automatically update these values.
 
 **Usage**
 
-<code>node update-metadata &lt;project-name&gt; &lt;project-description&gt; &lt;output-filename&gt; [github-project-url] [git-ssh-url]</code>
+<code>node update-metadata &lt;project-name&gt; &lt;project-description&gt; &lt;output-filename&gt; [github-project-url] [git-https-url] [git-ssh-url]</code>
 
-The <code>github-project-url</code> and <code>git-ssh-url</code> are optional parameters. If you don't provide them the corresponding values will not be changed in the configuration files listed above.
+The <code>github-project-url</code>, <code>git-https-url</code> and <code>git-ssh-url</code> are optional parameters. If you don't provide them the corresponding values will not be changed in the configuration files listed above.
 
 **Example**
 
-<code>node update-metadata your-project-name "What your awesome project does" output-filename.js "https://github.com/your-username/your-project-name" "git@github.com:your-username/your-project-name.git"</code>
+<code>node update-metadata your-project-name "What your awesome project does" output-filename.js "https://github.com/your-username/your-project-name" "https://github.com/your-username/your-project-name.git" "git@github.com:your-username/your-project-name.git"</code>
 
 
 # Full-Auto (Create GitHub Repository as well)

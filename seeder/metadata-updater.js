@@ -1,7 +1,7 @@
 var fs = require('fs');
 var file = require('./file');
 
-module.exports = function (projectName, projectDescription, outputFileName, projectUrl, sshUrl) {
+module.exports = function (projectName, projectDescription, outputFileName, projectUrl, httpsUrl, sshUrl) {
     // Verify that files exist
     var packageFile = "package.json";
     var bowerFile = "bower.json";
@@ -17,6 +17,7 @@ module.exports = function (projectName, projectDescription, outputFileName, proj
     console.log("Description: " + projectDescription);
     console.log("Output File: " + outputFileName);
     console.log("Project URL: " + projectUrl);
+    console.log("HTTPS URL: " + httpsUrl);
     console.log("SSH URL: " + sshUrl);
 
     // Modify package.json
@@ -25,8 +26,8 @@ module.exports = function (projectName, projectDescription, outputFileName, proj
     obj.name = projectName;
     obj.description = projectDescription;
 
-    if (projectUrl)
-        obj.repository = projectUrl;
+    if (httpsUrl)
+        obj.repository = httpsUrl;
 
     fs.writeFileSync(packageFile, JSON.stringify(obj, null, 2));
     console.log(packageFile + " updated");

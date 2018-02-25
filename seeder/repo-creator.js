@@ -85,6 +85,7 @@ module.exports = function (repoName, repoDescription, accessToken, callback) {
                                     callback({
                                         success: true,
                                         projectUrl: result.html_url,
+                                        httpsUrl: result.clone_url,
                                         sshUrl: result.ssh_url
                                     });
                             }

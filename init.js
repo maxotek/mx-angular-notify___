@@ -19,10 +19,12 @@ var result = repoCreator(projectName, projectDescription, accessToken, function 
         return - 1;
 
     var projectUrl = result.projectUrl;
+    var httpsUrl = result.httpsUrl;
     var sshUrl = result.sshUrl;
 
     console.log("Project URL: " + projectUrl);
+    console.log("HTTPS URL: " + httpsUrl);
     console.log("SSH URL: " + sshUrl);
 
-    return metadataUpdater(projectName, projectDescription, outputFileName, projectUrl, sshUrl) ? 1 : -1;
+    return metadataUpdater(projectName, projectDescription, outputFileName, projectUrl, httpsUrl, sshUrl) ? 1 : -1;
 });
