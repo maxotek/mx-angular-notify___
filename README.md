@@ -71,7 +71,7 @@ For this an access-token is necessary.
 
 To generate an access-token follow these steps:-
 
-1. Goto https://github.com and login with your account
+1. Goto [GitHub](https://github.com) and login with your account
 2. Click on your Avatar at the top right corner of Github and then select **Settings** from the drop down menu
 3. Goto **Developer Settings** from the side menu (bottom left)
 4. Goto **Personal access tokens** from the side menu
