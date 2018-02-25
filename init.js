@@ -1,58 +1,28 @@
-// Initializes the seed project with the specified 
-// project name, description, repository URL & output filename
-
 var fs = require('fs');
-var fileChecker = require('./file-checker');
-
-// Verify that files exist
-var packageFile = "package.json";
-var bowerFile = "bower.json";
-var buildConfFile = "build.conf.js";
-
-var filesToCheck = [packageFile, bowerFile, buildConfFile];
-if (filesToCheck.some(fileChecker))
-    return -1;
+var repoCreator = require('./seeder/repo-creator');
+var metadataUpdater = require('./seeder/metadata-updater');
 
 // Check Arguments
 if (process.argv.length < 6) {
-    console.error("Usage: node init.js <project-name> <project-description> <git-repository-url> <output-filename>");
+    console.error("Usage: node init <project-name> <project-description> <output-filename> <access_token>");
     return -1;
 }
 
 var projectName = process.argv[2];
 var projectDescription = process.argv[3];
-var repoUrl = process.argv[4];
-var outputFileName = process.argv[5];
+var outputFileName = process.argv[4];
+var accessToken = process.argv[5];
 
-// Dump Arguments
-console.log("Project: " + projectName);
-console.log("Description: " + projectDescription);
-console.log("Repository URL: " + repoUrl);
-console.log("Output File: " + outputFileName);
+// Create repository
+var result = repoCreator(projectName, projectDescription, accessToken, function (result) {
+    if (!result.success)
+        return - 1;
 
-// Modify package.json
-var content = fs.readFileSync(packageFile)
-var obj = JSON.parse(content);
-obj.name = projectName;
-obj.description = projectDescription;
-obj.repository = repoUrl;
-fs.writeFileSync(packageFile, JSON.stringify(obj, null, 2));
+    var projectUrl = result.projectUrl;
+    var sshUrl = result.sshUrl;
 
-console.log(packageFile + " updated");
+    console.log("Project URL: " + projectUrl);
+    console.log("SSH URL: " + sshUrl);
 
-// Modify bower.json
-var content = fs.readFileSync(bowerFile)
-var obj = JSON.parse(content);
-obj.name = projectName;
-obj.description = projectDescription;
-obj.homepage = repoUrl;
-fs.writeFileSync(bowerFile, JSON.stringify(obj, null, 4));
-
-console.log(bowerFile + " updated");
-
-// Modify build.conf.js
-var content = fs.readFileSync(buildConfFile).toString();
-content = content.replace(/buildJsFilename:(\s*)(['"])[^']+(['"])/, "buildJsFilename:$1$2" + outputFileName + "$3");
-fs.writeFileSync(buildConfFile, content);
-
-console.log(buildConfFile + " updated");
+    return metadataUpdater(projectName, projectDescription, outputFileName, projectUrl, sshUrl) ? 1 : -1;
+});
