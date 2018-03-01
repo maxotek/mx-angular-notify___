@@ -2,7 +2,7 @@
  *  This file contains all of the user settings for the gulp build process
  */
 module.exports = {
-    srcJs: ["src/services/*.service.js", "src/components/*.service.js", "src/directives/*.service.js", "src/*.module.js"],
+    srcJs: ["src/**/*js"],
     buildFolder: "dist",
     buildJsFilename: "your-project-name.js",
     banner: "/*!\n" +
