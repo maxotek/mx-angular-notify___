@@ -2,6 +2,7 @@
 
 var fs = require("fs");
 var file = require("./file");
+var Case = require("Case");
 
 module.exports = function (projectName, projectDescription, outputFileName, projectUrl, httpsUrl, sshUrl) {
     // Verify that files exist
@@ -37,6 +38,7 @@ module.exports = function (projectName, projectDescription, outputFileName, proj
     var bowerPkg = file.readJsonFileAsync(bowerFile);
     bowerPkg.name = projectName;
     bowerPkg.description = projectDescription;
+    bowerPkg.main = "dist/" + outputFileName;
 
     if (projectUrl)
         bowerPkg.homepage = projectUrl;
@@ -46,6 +48,14 @@ module.exports = function (projectName, projectDescription, outputFileName, proj
 
     // Modify build.conf.js
     file.regexReplaceFile(buildConfFile, /buildJsFilename:(\s*)(['"])[^'"]+(['"])/, "buildJsFilename:$1$2" + outputFileName + "$3");
+
+    // Modify your-project-name.module.js
+    var newModuleFileName = "src/" + projectName + ".module.js";
+    fs.renameSync("src/your-project-name.module.js", newModuleFileName);
+    console.log("Renamed AngularJS module file to: " + newModuleFileName);
+
+    file.regexReplaceFile(newModuleFileName, /yourProject/, Case.camel(projectName));
+    console.log("Updated AngularJS project name in: " + newModuleFileName);
 
     // Modify Git remote
     if (sshUrl)
