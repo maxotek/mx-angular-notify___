@@ -7,5 +7,6 @@
     "private": false,
     "dependencies": {
         "angular": "v1.6.9"
-    }
+    },
+    "main": "dist/your-project-name.js"
 }
