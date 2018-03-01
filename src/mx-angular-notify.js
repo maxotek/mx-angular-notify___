@@ -1,5 +1,5 @@
 (function () {
     "use strict";
 
-    angular.module("mx-angular-notify", []);
+    angular.module("mx-angular-notify", ["toastr"]);
 })();

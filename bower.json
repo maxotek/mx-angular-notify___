@@ -6,7 +6,8 @@
     "license": "MIT",
     "private": false,
     "dependencies": {
-        "angular": "v1.6.9"
+        "angular": "v1.6.9",
+        "angular-toastr": "2.1.1"
     },
     "main": "dist/mx-angular-notify.js"
 }
