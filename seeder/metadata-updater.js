@@ -2,7 +2,6 @@
 
 var fs = require("fs");
 var file = require("./file");
-var Case = require("Case");
 
 module.exports = function (projectName, projectDescription, outputFileName, projectUrl, httpsUrl, sshUrl) {
     // Verify that files exist
@@ -49,12 +48,12 @@ module.exports = function (projectName, projectDescription, outputFileName, proj
     // Modify build.conf.js
     file.regexReplaceFile(buildConfFile, /buildJsFilename:(\s*)(['"])[^'"]+(['"])/, "buildJsFilename:$1$2" + outputFileName + "$3");
 
-    // Modify your-project-name.module.js
-    var newModuleFileName = "src/" + projectName + ".module.js";
-    fs.renameSync("src/your-project-name.module.js", newModuleFileName);
+    // Modify yourProject.js
+    var newModuleFileName = "src/" + projectName + ".js";
+    fs.renameSync("src/your-project-name.js", newModuleFileName);
     console.log("Renamed AngularJS module file to: " + newModuleFileName);
 
-    file.regexReplaceFile(newModuleFileName, /yourProject/, Case.camel(projectName));
+    file.regexReplaceFile(newModuleFileName, /your-project-name/, projectName);
     console.log("Updated AngularJS project name in: " + newModuleFileName);
 
     // Modify Git remote

@@ -6,7 +6,13 @@ module.exports = {
         "es6": true,
         "node": true
     },
-    "extends": "eslint:recommended",
+    "plugins": [
+        "angular"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:angular/johnpapa"
+    ],
     "parserOptions": {
         "sourceType": "module"
     },
@@ -27,6 +33,10 @@ module.exports = {
         "semi": [
             "error",
             "always"
+        ],
+        "angular/function-type": [
+            "error",
+            "named"
         ]
     }
 };
