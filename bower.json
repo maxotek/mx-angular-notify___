@@ -1,12 +1,12 @@
 {
-    "name": "your-project-name",
-    "description": "What your awesome project does",
+    "name": "mx-angular-notify",
+    "description": "AngularJS module for showing toast notifications",
     "version": "1.0.0",
-    "homepage": "https://github.com/you/your-project-name",
+    "homepage": "https://github.com/maxotek/mx-angular-notify",
     "license": "MIT",
     "private": false,
     "dependencies": {
         "angular": "v1.6.9"
     },
-    "main": "dist/your-project-name.js"
+    "main": "dist/mx-angular-notify.js"
 }
