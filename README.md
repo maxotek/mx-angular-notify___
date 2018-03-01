@@ -1,4 +1,4 @@
-# mx-angular-component-seed
-Seed project for creating AngularJS modules with re-usable components, directives &amp; Services
+# mx-angular-notify
+AngularJS module for showing toast notifications
 
-Please see this [article](https://maxo.blog/seed-project-for-creating-angularjs-modules/) on how to use this seed project
+Please see this [article](https://maxo.blog/creating-an-angularjs-service/) on how to create this project
